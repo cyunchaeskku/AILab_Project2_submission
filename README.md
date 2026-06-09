@@ -1,6 +1,6 @@
-# 제출
-main.ipynb의 셀을 하나씩 실행하면 train, install dependencies가 되도록 작성하였습니다.
-seed numnber를 입력해 이미지 생성, 확인 또한 가능합니다.
+# 제출 코멘트
+> main.ipynb의 셀을 하나씩 실행하면 train, install dependencies가 되도록 작성하였고, 각 셀마다 주석으로 그 역할을 자세히 적어두었습니다.
+> seed numnber를 입력해 이미지 생성, 확인 또한 가능합니다.
 
 # FFHQ-256 baseline — student package
 

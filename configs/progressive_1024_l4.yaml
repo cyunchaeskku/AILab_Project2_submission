@@ -1,0 +1,134 @@
+generator:
+  z_dim: 512
+  resolutions: [4, 8, 16, 32, 64, 128, 256, 512, 1024]
+  channels:
+    4: 512
+    8: 512
+    16: 512
+    32: 512
+    64: 256
+    128: 128
+    256: 64
+    512: 64
+    1024: 32
+  norm_type: gn
+  gn_groups: 32
+  attention_resolutions: [32]
+  progressive: true
+
+discriminator:
+  resolutions: [1024, 512, 256, 128, 64, 32, 16, 8, 4]
+  channels:
+    1024: 32
+    512: 64
+    256: 64
+    128: 128
+    64: 256
+    32: 512
+    16: 512
+    8: 512
+    4: 512
+  use_spectral_norm: true
+  minibatch_std_group: 4
+  attention_resolutions: [32]
+  progressive: true
+
+training:
+  train_zip: data/train_50k_1024.zip
+  resolution: 1024
+  batch_size: 4
+  total_images: 1_800_000
+  num_workers: 2
+  flip: true
+
+  precision: fp32
+  augment: color,translation
+
+  lr_g: 0.0005
+  lr_d: 0.0005
+  beta1: 0.0
+  beta2: 0.9
+  weight_decay: 0.0
+
+  grad_clip_g: 10.0
+  grad_clip_d: 100.0
+
+  r1_gamma: 10.0
+  r1_lazy_every: 16
+
+  ema_half_life: 10_000
+  ckpt_every: 25_000
+  sample_every: 10_000
+  sample_grid_max_resolution: 512
+
+  log_every: 50
+  sample_n: 16
+  sample_seed: 42
+  seed: 42
+
+  diversity_regularizer:
+    weight: 0.0
+    target: 0.12
+    every: 4
+    max_resolution: 128
+
+progressive:
+  enabled: true
+  stages:
+    - resolution: 256
+      phase: stabilize
+      images: 50_000
+      batch_size: 16
+      train_zip: data/train_50k_256.zip
+      lr_g: 0.0005
+      lr_d: 0.0005
+    - resolution: 512
+      phase: fade
+      images: 400_000
+      batch_size: 8
+      train_zip: data/train_50k_512.zip
+      lr_g: 0.0005
+      lr_d: 0.0005
+    - resolution: 512
+      phase: stabilize
+      images: 600_000
+      batch_size: 8
+      train_zip: data/train_50k_512.zip
+      lr_g: 0.0003
+      lr_d: 0.0003
+    - resolution: 1024
+      phase: fade
+      images: 200_000
+      batch_size: 2
+      train_zip: data/train_50k_1024.zip
+      lr_g: 0.0003
+      lr_d: 0.0003
+    - resolution: 1024
+      phase: stabilize
+      images: 500_000
+      batch_size: 2
+      train_zip: data/train_50k_1024.zip
+      lr_g: 0.0002
+      lr_d: 0.0002
+
+validation:
+  enabled: true
+  every_images: 100_000
+  n_fake: 256
+  n_real: 1_000
+  batch_size: 4
+  seed: 2026
+  keep_fake: false
+  valid_zips:
+    256: data/valid_10k_256.zip
+    512: data/valid_10k_512.zip
+    1024: data/valid_10k_1024.zip
+
+wandb:
+  project: ffhqgen-student
+  name: pggan_1024_l4_v2
+  mode: online
+
+out:
+  run_dir: runs/pggan_1024_v2
+  backup_dir: /content/drive/MyDrive/OpenAILab/project2/pggan_1024_v2

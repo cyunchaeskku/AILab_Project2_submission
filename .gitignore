@@ -1,0 +1,12 @@
+# Junk
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+.ipynb_checkpoints/
+
+# Data zips
+*.zip
+
+# Training logs (optional)
+# runs/

@@ -1,0 +1,15 @@
+torch>=2.1
+torchvision>=0.16
+numpy>=1.24
+pillow>=10.0
+pyyaml>=6.0
+wandb>=0.16
+# ONNX export — `onnx` is required by torch's legacy exporter; `onnxruntime`
+# is optional and only needed to verify your exported model locally.
+onnx>=1.15
+onnxruntime>=1.16
+pytorch-fid>=0.3.0
+scipy>=1.10
+# SR strategy verification (verify_sr.py / export_sr_onnx.py) — Real-ESRGAN x2plus
+basicsr>=1.4.2
+realesrgan>=0.3.0

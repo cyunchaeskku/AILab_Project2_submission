@@ -1,0 +1,3 @@
+auto_config:
+  a100: progressive_1024_a100.yaml
+  l4: progressive_1024_l4.yaml

@@ -1,3 +1,7 @@
+# 제출
+main.ipynb의 셀을 하나씩 실행하면 train, install dependencies가 되도록 작성하였습니다.
+seed numnber를 입력해 이미지 생성, 확인 또한 가능합니다.
+
 # FFHQ-256 baseline — student package
 
 This package contains everything you need to load the distributed 256×256

@@ -10,3 +10,6 @@ __pycache__/
 
 # Training logs (optional)
 # runs/
+
+
+.pdf
